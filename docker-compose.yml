@@ -26,6 +26,9 @@ services:
     environment:
       - PORT=3001
       - MONGODB_URL=mongodb://mongo:27017/boticario
+      - EXTERNAL_SERVICE_URL=https://mdaqk8ek5j.execute-api.us-east-1.amazonaws.com/v1/cashback?cpf=
+      - EXTERNAL_SERVICE_TOKEN=ZXPURQOARHiMc6Y0flhRC1LVlZQVFRnm
+      - JWT_SECRET=change123
     networks:
       - boticario-network
   mongo-express:

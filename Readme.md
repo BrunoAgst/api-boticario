@@ -60,3 +60,4 @@ Token:
 2) Com o docker instalado execute o comando docker-compose up, que irá subir a aplicação com o banco de dados configurado.
 ```
 
+### Obs: Caso for utilizar o docker alterar a chave secreta do JWT.
