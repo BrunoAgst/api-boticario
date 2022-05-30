@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=boticario
+    networks:
+      - boticario-network
+  api-boticario:
+    depends_on:
+      - mongo
+    build:
+      context: .
+      target: start
+    container_name: api-boticario
+    restart: always
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/usr/share/app
+    environment:
+      - PORT=3001
+      - MONGODB_URL=mongodb://mongo:27017/boticario
+    networks:
+      - boticario-network
+  mongo-express:
+    depends_on:
+      - mongo
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin
+      ME_CONFIG_MONGODB_PORT: 27017
+    links:
+      - mongo
+    networks:
+      - boticario-network
+networks:
+  boticario-network:
+    driver: bridge
